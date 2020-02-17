@@ -70,6 +70,9 @@ SECTION_FUNC(exception.other, arch_swap)
 	/* Release stack space */
 	addi sp, sp, __z_arch_esf_t_SIZEOF
 #endif
+
+	andi a0, a0, MSTATUS_IEN //problem?
+	csrrs t0, mstatus, a0    //problem?
 	ecall
 
 	/*
@@ -93,8 +96,8 @@ SECTION_FUNC(exception.other, arch_swap)
 	 * Unlock irq, following IRQ lock state in a0 register.
 	 * Use atomic instruction csrrs to do so.
 	 */
-	andi a0, a0, MSTATUS_IEN
-	csrrs t0, mstatus, a0
+	//andi a0, a0, MSTATUS_IEN
+	//csrrs t0, mstatus, a0
 
 	/* Set value of return register a0 to value of register t2 */
 	addi a0, t2, 0
