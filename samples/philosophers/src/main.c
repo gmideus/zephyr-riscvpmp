@@ -89,6 +89,8 @@
 
 #define fork(x) (forks[x])
 
+extern void to_umode();
+
 static void set_phil_state_pos(int id)
 {
 #if !DEBUG_PRINTF
@@ -146,6 +148,8 @@ void philosopher(void *id, void *unused1, void *unused2)
 	fork_t fork2;
 
 	int my_id = POINTER_TO_INT(id);
+
+	to_umode();
 
 	/* Djkstra's solution: always pick up the lowest numbered fork first */
 	if (is_last_philosopher(my_id)) {
