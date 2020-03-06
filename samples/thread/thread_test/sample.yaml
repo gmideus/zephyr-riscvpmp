@@ -1,0 +1,14 @@
+sample:
+  description: Thread testing
+    application
+  name: thread
+common:
+    tags: introduction
+    harness: console
+    harness_config:
+      type: one_line
+      regex:
+        - "Hello Thread! (.*)"
+tests:
+  sample.helloworld:
+    tags: introduction
