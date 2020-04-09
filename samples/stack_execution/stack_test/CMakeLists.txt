@@ -7,5 +7,5 @@ project(hello_stack)
 
 target_sources(app PRIVATE
     src/main.c
-
+    src/test_add.S
     )
