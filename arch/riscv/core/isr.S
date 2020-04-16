@@ -33,6 +33,9 @@ GTEXT(sys_trace_isr_enter)
 GTEXT(_offload_routine)
 #endif
 
+/* Syscalls */
+GTEXT(handle_syscall)
+
 /* exports */
 GTEXT(__irq_wrapper)
 
@@ -101,6 +104,51 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	csrr t0, mstatus
 	RV_OP_STOREREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
 
+  /* PMP SPECIFIC REGISTERS */
+
+  csrr t0, pmpcfg0
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg0_OFFSET(sp)
+  csrr t0, pmpcfg1
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg1_OFFSET(sp)
+  csrr t0, pmpcfg2
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg2_OFFSET(sp)
+  csrr t0, pmpcfg3
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg3_OFFSET(sp)
+
+  csrr t0, pmpaddr0
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr0_OFFSET(sp)
+  csrr t0, pmpaddr1
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr1_OFFSET(sp)
+  csrr t0, pmpaddr2
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr2_OFFSET(sp)
+  csrr t0, pmpaddr3
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr3_OFFSET(sp)
+  csrr t0, pmpaddr4
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr4_OFFSET(sp)
+  csrr t0, pmpaddr5
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr5_OFFSET(sp)
+  csrr t0, pmpaddr6
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr6_OFFSET(sp)
+  csrr t0, pmpaddr7
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr7_OFFSET(sp)
+  csrr t0, pmpaddr8
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr8_OFFSET(sp)
+  csrr t0, pmpaddr9
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr9_OFFSET(sp)
+  csrr t0, pmpaddr10
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr10_OFFSET(sp)
+  csrr t0, pmpaddr11
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr11_OFFSET(sp)
+  csrr t0, pmpaddr12
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr12_OFFSET(sp)
+  csrr t0, pmpaddr13
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr13_OFFSET(sp)
+  csrr t0, pmpaddr14
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
+  csrr t0, pmpaddr15
+	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
+
+
 #ifdef CONFIG_RISCV_SOC_CONTEXT_SAVE
 	/* Handle context saving at SOC level. */
 	addi a0, sp, __z_arch_esf_t_soc_context_OFFSET
@@ -142,6 +190,10 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	 * otherwise handle fault
 	 */
 	beq t0, t1, is_syscall
+  /* Check for user mode syscall */
+  li t1, 0x8
+  beq t0, t1, is_syscall
+
 
 	/*
 	 * Call _Fault to handle exception.
@@ -155,6 +207,20 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	tail _Fault
 
 is_syscall:
+  /* SIMPLE SYSCALL TEST CODE */
+  RV_OP_LOADREG a0, __z_arch_esf_t_a7_OFFSET(sp)
+  call handle_syscall
+  RV_OP_LOADREG t0, __z_arch_esf_t_a7_OFFSET(sp)
+  la t1, 0x1
+  bne t0, t1, mepc_setup
+  RV_OP_LOADREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
+  la t1, 0x3
+  slli t1, t1, 11
+  or t0, t0, t1
+  RV_OP_STOREREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
+
+mepc_setup:
+  /* SIMPLE SYSCALL TEST END */
 	/*
 	 * A syscall is the result of an ecall instruction, in which case the
 	 * MEPC will contain the address of the ecall instruction.
@@ -179,6 +245,7 @@ is_syscall:
 	RV_OP_LOADREG t1, 0x00(t0)
 	bnez t1, is_interrupt
 #endif
+
 
 	/*
 	 * Go to reschedule to handle context-switch
@@ -427,6 +494,52 @@ no_reschedule:
 	/* Restore SOC-specific MSTATUS register */
 	RV_OP_LOADREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
 	csrw mstatus, t0
+
+  /* Restore pmp registers */
+
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg0_OFFSET(sp)
+  csrw pmpcfg0, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg1_OFFSET(sp)
+  csrw pmpcfg1, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg2_OFFSET(sp)
+  csrw pmpcfg2, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg3_OFFSET(sp)
+  csrw pmpcfg3, t0
+
+
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr0_OFFSET(sp)
+  csrw pmpaddr0, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr1_OFFSET(sp)
+  csrw pmpaddr1, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr2_OFFSET(sp)
+  csrw pmpaddr2, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr3_OFFSET(sp)
+  csrw pmpaddr3, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr4_OFFSET(sp)
+  csrw pmpaddr4, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr5_OFFSET(sp)
+  csrw pmpaddr5, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr6_OFFSET(sp)
+  csrw pmpaddr6, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr7_OFFSET(sp)
+  csrw pmpaddr7, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr8_OFFSET(sp)
+  csrw pmpaddr8, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr9_OFFSET(sp)
+  csrw pmpaddr9, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr10_OFFSET(sp)
+  csrw pmpaddr10, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr11_OFFSET(sp)
+  csrw pmpaddr11, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr12_OFFSET(sp)
+  csrw pmpaddr12, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr13_OFFSET(sp)
+  csrw pmpaddr13, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
+  csrw pmpaddr14, t0
+	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
+  csrw pmpaddr15, t0
+
 
 	/* Restore caller-saved registers from thread stack */
 	RV_OP_LOADREG ra, __z_arch_esf_t_ra_OFFSET(sp)

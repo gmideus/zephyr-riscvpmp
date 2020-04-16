@@ -7,7 +7,14 @@
 #include <zephyr.h>
 #include <sys/printk.h>
 
+int glovar = 17;
+int glovar2 = 44;
+
 void main(void)
 {
-	printk("Hello World! %s\n", CONFIG_BOARD);
+	int array[3];
+	array[0] = 1;
+	array[1] = 2;
+	array[2] = 3;
+	printk("Hello World! %d\n", array[1]);
 }

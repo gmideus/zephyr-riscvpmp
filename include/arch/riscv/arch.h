@@ -47,6 +47,7 @@
 #define MSTATUS_IEN	(1UL << 3)
 #define MSTATUS_MPP_M	(3UL << 11)
 #define MSTATUS_MPIE_EN (1UL << 7)
+#define MSTATUS_MPP_U 0
 
 /* This comes from openisa_rv32m1, but doesn't seem to hurt on other
  * platforms:
@@ -57,6 +58,7 @@
  *   by setting MPIE now, so it will be copied into IE on mret.
  */
 #define MSTATUS_DEF_RESTORE (MSTATUS_MPP_M | MSTATUS_MPIE_EN)
+#define MSTATUS_DEF_U (MSTATUS_MPP_U | MSTATUS_MPIE_EN)
 
 #ifndef _ASMLANGUAGE
 #include <sys/util.h>

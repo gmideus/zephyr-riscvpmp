@@ -11,6 +11,9 @@ zephyr_library_sources(
   reset.S
   swap.S
   thread.c
+  syscall.c
+  pmp.c
+  user.c
 )
 
 zephyr_library_sources_if_kconfig(irq_offload.c)

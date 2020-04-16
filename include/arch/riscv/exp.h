@@ -66,6 +66,33 @@ struct __esf {
 	ulong_t mepc;		/* machine exception program counter */
 	ulong_t mstatus;	/* machine status register */
 
+	/* pmp configuration registers */
+
+	ulong_t pmpcfg0;
+	ulong_t pmpcfg1;
+	ulong_t pmpcfg2;
+	ulong_t pmpcfg3;
+
+	/* pmp address registers */
+
+	ulong_t pmpaddr0;
+	ulong_t pmpaddr1;
+	ulong_t pmpaddr2;
+	ulong_t pmpaddr3;
+	ulong_t pmpaddr4;
+	ulong_t pmpaddr5;
+	ulong_t pmpaddr6;
+	ulong_t pmpaddr7;
+	ulong_t pmpaddr8;
+	ulong_t pmpaddr9;
+	ulong_t pmpaddr10;
+	ulong_t pmpaddr11;
+	ulong_t pmpaddr12;
+	ulong_t pmpaddr13;
+	ulong_t pmpaddr14;
+	ulong_t pmpaddr15;
+
+
 #ifdef CONFIG_RISCV_SOC_CONTEXT_SAVE
 	struct soc_esf soc_context;
 #endif

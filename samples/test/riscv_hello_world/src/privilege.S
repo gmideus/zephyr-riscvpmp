@@ -43,7 +43,7 @@ set_pmp:
   srli t1, t1, 0x2
   csrw pmpaddr0, t1
 
-  li t1, 0x080b080d //00->disabled, 0b->TOR+RW, 08-TOR, 0d->TOR+RX
+  la t1, 0x0808080d //00->disabled, 0b->TOR+RW, 08-TOR, 0d->TOR+RX
   csrw pmpcfg0, t1
   ret
 
@@ -60,5 +60,17 @@ test_pmp:
   .globl set_int
   .type set_int, @function
 set_int:
-  sw a0, 0(a1)
+  lui a5, 0x80000
+  li a1, 44
+  sw a1, 0(a5)
+  //sw a0, 0(a1)
+  ret
+
+  .globl to_mmode
+  .type to_mmode, @function
+to_mmode:
+  la a7, 0x1
+  la a1, mmode_return
+  ecall
+mmode_return:
   ret
