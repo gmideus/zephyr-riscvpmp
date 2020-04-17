@@ -104,6 +104,7 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	csrr t0, mstatus
 	RV_OP_STOREREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
 
+  #ifdef CONFIG_RISCV_USER_MODE
   /* PMP SPECIFIC REGISTERS */
 
   csrr t0, pmpcfg0
@@ -147,6 +148,8 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
   csrr t0, pmpaddr15
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
+
+  #endif
 
 
 #ifdef CONFIG_RISCV_SOC_CONTEXT_SAVE
@@ -207,6 +210,7 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	tail _Fault
 
 is_syscall:
+#ifdef CONFIG_RISCV_USER_MODE
   /* SIMPLE SYSCALL TEST CODE */
   RV_OP_LOADREG a0, __z_arch_esf_t_a7_OFFSET(sp)
   call handle_syscall
@@ -218,6 +222,7 @@ is_syscall:
   slli t1, t1, 11
   or t0, t0, t1
   RV_OP_STOREREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
+#endif
 
 mepc_setup:
   /* SIMPLE SYSCALL TEST END */
@@ -495,6 +500,7 @@ no_reschedule:
 	RV_OP_LOADREG t0, __z_arch_esf_t_mstatus_OFFSET(sp)
 	csrw mstatus, t0
 
+#ifdef CONFIG_RISCV_USER_MODE
   /* Restore pmp registers */
 
 	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg0_OFFSET(sp)
@@ -539,7 +545,7 @@ no_reschedule:
   csrw pmpaddr14, t0
 	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
   csrw pmpaddr15, t0
-
+#endif
 
 	/* Restore caller-saved registers from thread stack */
 	RV_OP_LOADREG ra, __z_arch_esf_t_ra_OFFSET(sp)

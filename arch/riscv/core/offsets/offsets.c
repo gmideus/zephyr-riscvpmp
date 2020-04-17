@@ -66,6 +66,7 @@ GEN_OFFSET_SYM(z_arch_esf_t, a7);
 GEN_OFFSET_SYM(z_arch_esf_t, mepc);
 GEN_OFFSET_SYM(z_arch_esf_t, mstatus);
 
+#ifdef CONFIG_RISCV_USER_MODE
 /* PMP control registers */
 GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg0);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg1);
@@ -88,6 +89,8 @@ GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr12);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr13);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr14);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr15);
+
+#endif
 
 #if defined(CONFIG_RISCV_SOC_CONTEXT_SAVE)
 GEN_OFFSET_SYM(z_arch_esf_t, soc_context);

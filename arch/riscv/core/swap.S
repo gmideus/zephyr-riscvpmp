@@ -104,21 +104,9 @@ SECTION_FUNC(exception.other, arch_swap)
 	/* Set value of return register a0 to value of register t2 */
 	addi a0, t2, 0
 
-  //RV_OP_STOREREG ra, __z_arch_esf_t_ra_OFFSET(sp)
 
-  /* U-MODE TEST */
-  //call is_user
-  //beq a0, zero, return
-  //li t1, 0x1800
-  //csrc mstatus, t1
-  //la t0, return
-  //csrw mepc, t0
-	//mret
-  /* U-MODE TEST */
 
 	/* Return */
-//return:
-  //RV_OP_LOADREG ra, __z_arch_esf_t_ra_OFFSET(sp)
 	jalr x0, ra
 
 

@@ -92,6 +92,10 @@ config GEN_IRQ_VECTOR_TABLE
 config NUM_IRQS
 	int
 
+config RISCV_USER_MODE
+	bool "Enables the use of user mode threads with memory protection"
+	default n
+
 endmenu
 
 endmenu

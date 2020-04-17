@@ -47,7 +47,9 @@
 #define MSTATUS_IEN	(1UL << 3)
 #define MSTATUS_MPP_M	(3UL << 11)
 #define MSTATUS_MPIE_EN (1UL << 7)
+#ifdef CONFIG_RISCV_USER_MODE
 #define MSTATUS_MPP_U 0
+#endif
 
 /* This comes from openisa_rv32m1, but doesn't seem to hurt on other
  * platforms:
