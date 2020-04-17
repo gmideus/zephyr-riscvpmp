@@ -1,0 +1,14 @@
+sample:
+  description: Code Area testing
+    application
+  name: code area
+common:
+    tags: introduction
+    harness: console
+    harness_config:
+      type: one_line
+      regex:
+        - "Hello Code Area! (.*)"
+tests:
+  sample.helloworld:
+    tags: introduction
