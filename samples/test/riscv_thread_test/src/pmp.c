@@ -29,8 +29,6 @@
 
 #define csrw(csr, value) ({ __asm__ volatile ("csrw " #csr ", %0" :: "r"(value)); })
 
-extern void set_pmpcfg(uint32_t pmpcfg0, uint32_t pmpcfg1, uint32_t pmpcfg2, uint32_t pmpcfg3);
-
 void init_pmp(int *stack_start, unsigned int stack_size){
 
 	uint32_t pmpconfig0, pmpconfig1;
@@ -73,18 +71,5 @@ void init_pmp(int *stack_start, unsigned int stack_size){
 
 
 }
-
-
-
-// void init_pmp(struct __esf *stack_init, char *stack_start, unsigned int stack_size){
-// 	stack_init->pmpaddr3 = (0xffffffff >> 2);
-// 	stack_init->pmpaddr2 = (((unsigned int)stack_start + stack_size) >> 2);
-// 	stack_init->pmpaddr1 = ((unsigned int)stack_start >> 2);
-// 	stack_init->pmpaddr0 = (0x20404000 >> 2);
-// 	stack_init->pmpcfg0 = 0x00000000;
-// 	stack_init->pmpcfg0 = 0x00000000;
-// 	stack_init->pmpcfg0 = 0x00000000;
-// 	stack_init->pmpcfg0 = 0x00000000;
-// }
 
 #endif
