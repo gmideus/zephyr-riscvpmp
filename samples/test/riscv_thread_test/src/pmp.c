@@ -2,10 +2,7 @@
 #include <sys/printk.h>
 #include <stdarg.h>
 #include <toolchain.h>
-#include <linker/sections.h>
-#include <syscall_handler.h>
-#include <logging/log.h>
-#include <sys/types.h>
+
 
 #ifdef CONFIG_RISCV_USER_MODE
 
@@ -34,7 +31,7 @@
 
 extern void set_pmpcfg(uint32_t pmpcfg0, uint32_t pmpcfg1, uint32_t pmpcfg2, uint32_t pmpcfg3);
 
-void init_pmp(char *stack_start, unsigned int stack_size){
+void init_pmp(int *stack_start, unsigned int stack_size){
 
 	uint32_t pmpconfig0, pmpconfig1;
 	uint32_t pmpaddress0, pmpaddress1, pmpaddress2, pmpaddress3,
@@ -44,7 +41,7 @@ void init_pmp(char *stack_start, unsigned int stack_size){
 	pmpaddress1 = CODE_START >> ADDR_SHIFT;
 	pmpaddress2 = CODE_END >> ADDR_SHIFT;
 	pmpaddress3 = DATA_START >> ADDR_SHIFT;
-	pmpaddress4 = (((uint32_t) DATA_START+32) >> ADDR_SHIFT);
+	pmpaddress4 = (((uint32_t) DATA_START+0x114) >> ADDR_SHIFT);
 	pmpaddress5 = ((uint32_t) stack_start >> ADDR_SHIFT);
 	pmpaddress6 = (((uint32_t) stack_start + stack_size) >> ADDR_SHIFT);
 	pmpaddress7 = UPPER_BOUND >> ADDR_SHIFT;

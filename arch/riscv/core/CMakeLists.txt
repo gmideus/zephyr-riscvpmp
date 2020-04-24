@@ -12,7 +12,7 @@ zephyr_library_sources(
   swap.S
   thread.c
   syscall.c
-  pmp.c
+
 )
 
 zephyr_library_sources_if_kconfig(irq_offload.c)

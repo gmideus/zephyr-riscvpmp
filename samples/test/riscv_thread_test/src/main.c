@@ -37,11 +37,9 @@ int gloval = 17;
 
 void thread_entry(int n){
 
-  // int *stack_start = (int *)_kernel.current->stack_info.start;
-  // int stack_size = _kernel.current->stack_info.size;
-  //set_pmp(stack_start, stack_size);
+  //gloval = 66;
   for(int i = 0; i < 5; i++){
-    printk("U-Thread %d: %d\n", n, i);
+    printk("U-Thread %d: %d\n", n, gloval);
     yield();
   }
 

@@ -43,8 +43,12 @@ set_pmp:
   srli t1, t1, 0x2
   csrw pmpaddr0, t1
 
-  la t1, 0x0808080d //00->disabled, 0b->TOR+RW, 08-TOR, 0d->TOR+RX
+  la t1, 0x0f0b0f0d //00->disabled, 0b->TOR+RW, 08-TOR, 0d->TOR+RX
   csrw pmpcfg0, t1
+  la t1, 0x0
+  csrw pmpcfg1, t1
+  csrw pmpcfg2, t1
+  csrw pmpcfg3, t1
   ret
 
 

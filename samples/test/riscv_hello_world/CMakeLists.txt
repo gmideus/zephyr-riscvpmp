@@ -12,5 +12,5 @@ target_sources(app PRIVATE
     src/misa.S
     src/privilege.S
     src/mrw.S
-
+    src/test_add.S
     )

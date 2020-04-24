@@ -8,7 +8,7 @@
 #include <ksched.h>
 
 #ifdef CONFIG_RISCV_USER_MODE
-void init_pmp(struct __esf *stack_init, char *stack_start, int stack_size);
+void init_pmp(char *stack_start, int stack_size);
 #endif
 
 void z_thread_entry_wrapper(k_thread_entry_t thread,
@@ -63,7 +63,7 @@ void arch_new_thread(struct k_thread *thread, k_thread_stack_t *stack,
 	 */
 	#ifdef CONFIG_RISCV_USER_MODE
 	if(options & K_USER){
-		init_pmp(stack_init, stack_memory, stack_size);
+		//init_pmp(stack_memory, stack_size);
 	}
 	#endif
 	stack_init->mstatus = MSTATUS_DEF_RESTORE;

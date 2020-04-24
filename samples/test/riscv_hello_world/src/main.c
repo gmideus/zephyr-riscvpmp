@@ -38,6 +38,24 @@ void print_reg(){
 
 
 
+
+// void main(void)
+// {
+//   int *stack_start = (int *)_kernel.current->stack_info.start;
+//   int stack_size = _kernel.current->stack_info.size;
+//   int value = 14;
+//   printk("0x%x\n", (int)stack_start);
+//   printk("0x%x\n", (int)stack_start+stack_size);
+//   set_pmp(stack_start, stack_size);
+//   to_umode();
+//   printk("Hello\n");
+//   value = 88;
+//   value2 = 33;
+//   printk("0x%x: %d\n", &value2, value2);
+//   to_mmode();
+//
+// }
+
 void main(void)
 {
   int *stack_start = (int *)_kernel.current->stack_info.start;
@@ -47,18 +65,16 @@ void main(void)
   printk("0x%x\n", (int)stack_start+stack_size);
   set_pmp(stack_start, stack_size);
   to_umode();
-  //printk("Hello\n");
-  value = value2;
-  value2 = 33;
-  printk("0x%x: %d\n", &value, value);
-  to_mmode();
+  int inject[4];
+  inject[0] = 0x00750513;
+  inject[1] = 0x00008067;
 
+  printk("Hello!\n");
 
-}
-
-int test(){
-  //This is a test function to check registers
-  int x = 0;
-  x = x + 4;
-  return x;
+  int (*fun_ptr)(int) = (void *) &inject[0];
+  value = (*fun_ptr)(1);
+  //value = 88;
+  printk("%d \n", value);
+  printk("%p\n", &inject[0]);
+  printk("%d\n", inject[0]);
 }
