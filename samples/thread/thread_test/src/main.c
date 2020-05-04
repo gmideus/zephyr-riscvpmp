@@ -13,21 +13,22 @@
 #define NUM_THREADS 8
 #define THREAD_STACK_SIZE 500
 #define THREAD_PRIORITY 0 //default is 0 if !PREEMPT_ENABLED
-#define THREAD_YIELDS 10000
+#define THREAD_YIELDS 1000 //number of yields for EACH thread
+#define PERIOD 100 //number of yields to increase for each interval
 
 struct k_thread worker_threads[NUM_THREADS];
 
 K_THREAD_STACK_ARRAY_DEFINE(worker_stacks, NUM_THREADS, THREAD_STACK_SIZE);
 
-int executed = 0;
 int global_yield_counter = 0;
 
 void threads_entry_point(void *p1, void *p2, void *p3){
-  for(int i = 0; i < THREAD_YIELDS; i++){
+  //yield forever
+  while(1){
     global_yield_counter++;
     k_yield();
+    //yield() for user threads.
   }
-  //printk("Thread: %d \n", (int)POINTER_TO_INT(p1));
 }
 
 /**
@@ -40,25 +41,36 @@ void threads_entry_point(void *p1, void *p2, void *p3){
 void test_main(void)
 {
   u32_t start_time, stop_time, cycles_spent, nanoseconds_spent;
-  int count = 0;
+  int interval = PERIOD;
   for (int i = 0; i < NUM_THREADS; i++) {
+    /*
 		k_thread_create(&worker_threads[i],
+				worker_stacks[i], THREAD_STACK_SIZE,
+				user_wrapper, threads_entry_point, INT_TO_POINTER(i), NULL,
+				THREAD_PRIORITY,
+				0, K_NO_WAIT);
+        */
+    //For normal threads, jump to threads_entry_point directly
+    k_thread_create(&worker_threads[i],
 				worker_stacks[i], THREAD_STACK_SIZE,
 				threads_entry_point, INT_TO_POINTER(i), NULL, NULL,
 				THREAD_PRIORITY,
 				0, K_NO_WAIT);
 	}
   zassert_true(global_yield_counter == 0, "Threads ran too soon");
-  start_time = k_cycle_get_32();
-  k_yield();
-  while(global_yield_counter < NUM_THREADS * THREAD_YIELDS){
-    count++;
+  while(interval <= THREAD_YIELDS){
+    start_time = k_cycle_get_32();
     k_yield();
+    while(global_yield_counter < NUM_THREADS * interval){
+      k_yield();
+    }
+    /* We got rescheduled again and we have exited while loop */
+    stop_time = k_cycle_get_32();
+    zassert_true(global_yield_counter == NUM_THREADS * interval, "Not enough threads ran");
+    cycles_spent = stop_time - start_time;
+    nanoseconds_spent = (u32_t)k_cyc_to_ns_floor64(cycles_spent);
+    printk("%d context switches ran in: %u nanoseconds\n", global_yield_counter, nanoseconds_spent);
+    global_yield_counter = 0;
+    interval += PERIOD;
   }
-  /* We got rescheduled again and we have exited while loop */
-  stop_time = k_cycle_get_32();
-  zassert_true(global_yield_counter == NUM_THREADS * THREAD_YIELDS, "Not enough threads ran");
-  cycles_spent = stop_time - start_time;
-  nanoseconds_spent = (u32_t)k_cyc_to_ns_floor64(cycles_spent);
-  printk("Threads ran in: %u nanoseconds\n", nanoseconds_spent);
 }
