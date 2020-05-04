@@ -16,6 +16,8 @@
 #define THREAD_YIELDS 1000 //number of yields for EACH thread
 #define PERIOD 100 //number of yields to increase for each interval
 
+extern void yield(); //for user threads
+
 struct k_thread worker_threads[NUM_THREADS];
 
 K_THREAD_STACK_ARRAY_DEFINE(worker_stacks, NUM_THREADS, THREAD_STACK_SIZE);
@@ -26,8 +28,8 @@ void threads_entry_point(void *p1, void *p2, void *p3){
   //yield forever
   while(1){
     global_yield_counter++;
-    k_yield();
-    //yield() for user threads.
+    //k_yield();
+    yield(); //for user threads.
   }
 }
 
@@ -43,19 +45,20 @@ void test_main(void)
   u32_t start_time, stop_time, cycles_spent, nanoseconds_spent;
   int interval = PERIOD;
   for (int i = 0; i < NUM_THREADS; i++) {
-    /*
+
 		k_thread_create(&worker_threads[i],
 				worker_stacks[i], THREAD_STACK_SIZE,
 				user_wrapper, threads_entry_point, INT_TO_POINTER(i), NULL,
 				THREAD_PRIORITY,
 				0, K_NO_WAIT);
-        */
+    /*
     //For normal threads, jump to threads_entry_point directly
     k_thread_create(&worker_threads[i],
 				worker_stacks[i], THREAD_STACK_SIZE,
 				threads_entry_point, INT_TO_POINTER(i), NULL, NULL,
 				THREAD_PRIORITY,
 				0, K_NO_WAIT);
+        */
 	}
   zassert_true(global_yield_counter == 0, "Threads ran too soon");
   while(interval <= THREAD_YIELDS){
