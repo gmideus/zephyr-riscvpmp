@@ -12,6 +12,9 @@ zephyr_library_sources(
   swap.S
   thread.c
   syscall.c
+  user_wrapper.c
+  pmp.c
+  privilege.S
 
 )
 

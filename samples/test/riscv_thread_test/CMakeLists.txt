@@ -7,11 +7,6 @@ project(hello_world)
 
 target_sources(app PRIVATE
     src/main.c
-    src/user_wrapper.c
-    src/ustatus.S
-    src/misa.S
-    src/privilege.S
-    src/mrw.S
-    src/pmp.c
+
 
     )

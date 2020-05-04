@@ -20,8 +20,8 @@ extern int get_mstatus();
 extern void set_int(int val, int* addr);
 void thread_entry();
 void thread_entry_m();
-void yield();
-void user_wrapper();
+//void yield();
+//void user_wrapper();
 extern void to_mmode();
 extern void yield();
 

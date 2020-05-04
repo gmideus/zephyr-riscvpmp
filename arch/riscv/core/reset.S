@@ -60,6 +60,12 @@ aa_loop:
 	blt t0, t1, aa_loop
 #endif
 
+#ifdef CONFIG_RISCV_USER_MODE
+  csrw pmpcfg0, zero
+  csrw pmpcfg1, zero
+
+#endif
+
 	/*
 	 * Initially, setup stack pointer to
 	 * _interrupt_stack + CONFIG_ISR_STACK_SIZE

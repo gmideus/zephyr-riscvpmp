@@ -16,11 +16,11 @@ extern void privilege(int x);
 extern int get_misa();
 extern void set_misa(int x);
 extern void clear_misa(int x);
-extern void to_umode();
+//extern void to_umode();
 extern void to_mmode();
 extern void ecall();
 
-extern void set_pmp(int *stack_start, int stack_size);
+//extern void set_pmp(int *stack_start, int stack_size);
 extern void set_int();//(int i, int *addr);
 
 int value2 = 17;

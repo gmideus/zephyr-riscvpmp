@@ -107,6 +107,15 @@ void z_irq_spurious(void *unused);
 })
 #endif
 
+#ifdef CONFIG_RISCV_USER_MODE
+/*
+ * Functions and variables required for riscv user mode with memory protection
+ */
+void user_wrapper(void (*entry)(), void *p1, void *p2);
+void yield();
+//uint32_t data_end;
+#endif
+
 /*
  * use atomic instruction csrrc to lock global irq
  * csrrc: atomic read and clear bits in CSR register

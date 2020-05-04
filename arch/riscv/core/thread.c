@@ -7,9 +7,6 @@
 #include <kernel.h>
 #include <ksched.h>
 
-#ifdef CONFIG_RISCV_USER_MODE
-void init_pmp(char *stack_start, int stack_size);
-#endif
 
 void z_thread_entry_wrapper(k_thread_entry_t thread,
 			   void *arg1,
@@ -62,10 +59,18 @@ void arch_new_thread(struct k_thread *thread, k_thread_stack_t *stack,
 	 *    thread stack.
 	 */
 	#ifdef CONFIG_RISCV_USER_MODE
-	if(options & K_USER){
-		//init_pmp(stack_memory, stack_size);
-	}
+  /*
+	 *	Initiate PMP configuration to 0
+	 *  PMP settings will be initated later, but any garbage in the stack_init
+	 *	struct could lock PMP settings until next reset.
+	 */
+
+	stack_init->pmpcfg0 = 0;
+	stack_init->pmpcfg1 = 0;
+	stack_init->pmpcfg2 = 0;
+	stack_init->pmpcfg3 = 0;
 	#endif
+	
 	stack_init->mstatus = MSTATUS_DEF_RESTORE;
 	stack_init->mepc = (ulong_t)z_thread_entry_wrapper;
 
