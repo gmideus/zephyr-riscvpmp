@@ -31,3 +31,5 @@ The thread would be defined like this:
 ```
 K_THREAD_DEFINE(tid1, STACK_SIZE, user_wrapper, thread_entry, 24, 5, PRIORITY, 0, K_NO_WAIT);
 ```
+
+There are a number of OS functions that are not available to threads in user mode because they either require access to restricted memory sections or make use of privileged instructions that can only be executed in M-mode. One of these functions k_yield has been given a user mode equivalent simply called yield that can be used by user mode threads to let the OS schedule another thread.
