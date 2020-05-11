@@ -111,10 +111,10 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg0_OFFSET(sp)
   csrr t0, pmpcfg1
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg1_OFFSET(sp)
-  csrr t0, pmpcfg2
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg2_OFFSET(sp)
-  csrr t0, pmpcfg3
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg3_OFFSET(sp)
+  # csrr t0, pmpcfg2
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg2_OFFSET(sp)
+  # csrr t0, pmpcfg3
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpcfg3_OFFSET(sp)
 
   csrr t0, pmpaddr0
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr0_OFFSET(sp)
@@ -132,22 +132,22 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr6_OFFSET(sp)
   csrr t0, pmpaddr7
 	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr7_OFFSET(sp)
-  csrr t0, pmpaddr8
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr8_OFFSET(sp)
-  csrr t0, pmpaddr9
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr9_OFFSET(sp)
-  csrr t0, pmpaddr10
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr10_OFFSET(sp)
-  csrr t0, pmpaddr11
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr11_OFFSET(sp)
-  csrr t0, pmpaddr12
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr12_OFFSET(sp)
-  csrr t0, pmpaddr13
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr13_OFFSET(sp)
-  csrr t0, pmpaddr14
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
-  csrr t0, pmpaddr15
-	RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
+  # csrr t0, pmpaddr8
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr8_OFFSET(sp)
+  # csrr t0, pmpaddr9
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr9_OFFSET(sp)
+  # csrr t0, pmpaddr10
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr10_OFFSET(sp)
+  # csrr t0, pmpaddr11
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr11_OFFSET(sp)
+  # csrr t0, pmpaddr12
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr12_OFFSET(sp)
+  # csrr t0, pmpaddr13
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr13_OFFSET(sp)
+  # csrr t0, pmpaddr14
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
+  # csrr t0, pmpaddr15
+	# RV_OP_STOREREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
 
   #endif
 
@@ -507,10 +507,10 @@ no_reschedule:
   csrw pmpcfg0, t0
 	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg1_OFFSET(sp)
   csrw pmpcfg1, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg2_OFFSET(sp)
-  csrw pmpcfg2, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg3_OFFSET(sp)
-  csrw pmpcfg3, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg2_OFFSET(sp)
+  # csrw pmpcfg2, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpcfg3_OFFSET(sp)
+  # csrw pmpcfg3, t0
 
 
 	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr0_OFFSET(sp)
@@ -529,22 +529,22 @@ no_reschedule:
   csrw pmpaddr6, t0
 	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr7_OFFSET(sp)
   csrw pmpaddr7, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr8_OFFSET(sp)
-  csrw pmpaddr8, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr9_OFFSET(sp)
-  csrw pmpaddr9, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr10_OFFSET(sp)
-  csrw pmpaddr10, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr11_OFFSET(sp)
-  csrw pmpaddr11, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr12_OFFSET(sp)
-  csrw pmpaddr12, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr13_OFFSET(sp)
-  csrw pmpaddr13, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
-  csrw pmpaddr14, t0
-	RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
-  csrw pmpaddr15, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr8_OFFSET(sp)
+  # csrw pmpaddr8, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr9_OFFSET(sp)
+  # csrw pmpaddr9, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr10_OFFSET(sp)
+  # csrw pmpaddr10, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr11_OFFSET(sp)
+  # csrw pmpaddr11, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr12_OFFSET(sp)
+  # csrw pmpaddr12, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr13_OFFSET(sp)
+  # csrw pmpaddr13, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr14_OFFSET(sp)
+  # csrw pmpaddr14, t0
+	# RV_OP_LOADREG t0, __z_arch_esf_t_pmpaddr15_OFFSET(sp)
+  # csrw pmpaddr15, t0
 #endif
 
 	/* Restore caller-saved registers from thread stack */
