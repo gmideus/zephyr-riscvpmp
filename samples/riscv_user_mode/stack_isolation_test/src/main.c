@@ -19,19 +19,18 @@ void access_value(int id);
 K_THREAD_DEFINE(tid1, STACK_SIZE, user_wrapper, change_pointer, 1, NULL, PRIORITY, K_USER, K_NO_WAIT);
 K_THREAD_DEFINE(tid2, STACK_SIZE, user_wrapper, access_value, 2, NULL, PRIORITY, K_USER, K_NO_WAIT);
 
+// K_THREAD_DEFINE(tid1, STACK_SIZE, change_pointer, 1, NULL, NULL, PRIORITY, K_USER, K_NO_WAIT);
+// K_THREAD_DEFINE(tid2, STACK_SIZE, access_value, 2, NULL, NULL, PRIORITY, K_USER, K_NO_WAIT);
+
 int *stack_ptr;
 volatile int stack_ptr_changed = 0; // set to 1 when stack_ptr is set
 
 void change_pointer(int id){
-    //printk("%d\n", id);
     int dummy = 1337;
 
     stack_ptr = &dummy;
     stack_ptr_changed = 1;
-    while(1){ //do not need this thread any more
-      yield();
-      //k_yield(); //for m-mode threads
-    }
+
   }
 
 
@@ -42,11 +41,8 @@ void access_value(int id){
     //k_yield();
   }
 
-  //only t2 will come here
   printk("Global stack ptr is: %d\n", *stack_ptr); //this should not work if there is PMP due to stack_ptr pointing
-                              //to the stack of t1
 
-  //printk("Dummy is: %d\n", dummy); //should not come here if there is PMP, this is mostly for C Comp Opt
 }
 
 
