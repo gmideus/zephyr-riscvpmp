@@ -1,5 +1,6 @@
 #include <kernel.h>
 
+#ifdef CONFIG_RISCV_USER_MODE
 extern void to_umode();
 void init_pmp(int *stack_start, int stack_size);
 
@@ -9,3 +10,4 @@ void user_wrapper(void (*entry)(), void *p1, void *p2){
 	entry(p1, p2);
 
 }
+#endif
