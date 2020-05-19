@@ -5,16 +5,24 @@
  */
 
 #include <zephyr.h>
-#include <ztest.h>
 #include <stdlib.h>
 #include <sys/printk.h>
 #include <kernel.h>
+
 volatile extern int test_func(int);
 extern void test_write_to_code(void*);
 
-int add_one(int a){
-  return a + 1;
-}
+#define STACK_SIZE 512
+#define PRIORITY 0
+
+void thread_entry(void);
+
+K_THREAD_DEFINE(tid1, STACK_SIZE, user_wrapper, thread_entry, NULL, NULL, PRIORITY, K_USER, K_NO_WAIT);
+
+
+// int add_one(int a){
+//   return a + 1;
+// }
 
 //void write_to_code_area(){
 
@@ -36,11 +44,14 @@ int add_one(int a){
   // printk("%d\n", n);
 //}
 
-
-void test_main(void)
-{
+void thread_entry(void){
   int n = 1;
   test_write_to_code(&test_func);
   n = test_func(n);
   printk("%d\n", n);
+}
+
+void test_main(void)
+{
+
 }

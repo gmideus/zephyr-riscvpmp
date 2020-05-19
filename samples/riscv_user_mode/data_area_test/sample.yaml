@@ -1,0 +1,14 @@
+sample:
+  description: Stack testing
+    application
+  name: stack
+common:
+    tags: introduction
+    harness: console
+    harness_config:
+      type: one_line
+      regex:
+        - "Hello Data! (.*)"
+tests:
+  sample.helloworld:
+    tags: introduction
