@@ -66,6 +66,8 @@ struct __esf {
 	ulong_t mepc;		/* machine exception program counter */
 	ulong_t mstatus;	/* machine status register */
 
+	#ifdef CONFIG_RISCV_USER_MODE
+
 	/* pmp configuration registers */
 
 	ulong_t pmpcfg0;
@@ -91,6 +93,8 @@ struct __esf {
 	ulong_t pmpaddr13;
 	ulong_t pmpaddr14;
 	ulong_t pmpaddr15;
+
+	#endif
 
 
 #ifdef CONFIG_RISCV_SOC_CONTEXT_SAVE
