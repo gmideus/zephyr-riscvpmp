@@ -16,6 +16,8 @@
 #define THREAD_YIELDS 1000 //number of yields for EACH thread
 #define PERIOD 100 //number of yields to increase for each interval
 
+int n_fib = 1;
+
 extern void yield(); //for user threads
 
 struct k_thread worker_threads[NUM_THREADS];
@@ -24,14 +26,23 @@ K_THREAD_STACK_ARRAY_DEFINE(worker_stacks, NUM_THREADS, THREAD_STACK_SIZE);
 
 int global_yield_counter = 0;
 
-void threads_entry_point(void *p1, void *p2, void *p3){
-  //yield forever
-  while(1){
-    global_yield_counter++;
-    //k_yield();
-    yield(); //for user threads.
+int fib(void *p1, void *p2, void *p3){
+  int n = *((int *)p1);
+  int f1 = 0;
+  int f2 = 1;
+  int term = 1;
+  int i;
+
+  for(i=0; i < n; i++){
+    term = f1 + f2;
+    f1 = f2;
+    f2 = term;
   }
+
+  //printf("%d\n", term);
+  return term;
 }
+
 
 /**
 * This will measure the context switching between threads.
@@ -48,14 +59,14 @@ void test_main(void)
 
 		k_thread_create(&worker_threads[i],
 				worker_stacks[i], THREAD_STACK_SIZE,
-				user_wrapper, threads_entry_point, INT_TO_POINTER(i), NULL,
+				user_wrapper, fib, &n_fib, NULL,
 				THREAD_PRIORITY,
 				0, K_NO_WAIT);
 
     //For normal threads, jump to threads_entry_point directly
     // k_thread_create(&worker_threads[i],
 		// 		worker_stacks[i], THREAD_STACK_SIZE,
-		// 		threads_entry_point, INT_TO_POINTER(i), NULL, NULL,
+		// 		fib, &n_fib, NULL, NULL,
 		// 		THREAD_PRIORITY,
 		// 		0, K_NO_WAIT);
 

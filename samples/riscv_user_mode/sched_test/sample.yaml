@@ -1,14 +1,14 @@
 sample:
-  description: Hello World sample, the simplest Zephyr
+  description: Thread testing
     application
-  name: hello world
+  name: thread
 common:
     tags: introduction
     harness: console
     harness_config:
       type: one_line
       regex:
-        - "Hello World! (.*)"
+        - "Hello Thread! (.*)"
 tests:
   sample.helloworld:
     tags: introduction

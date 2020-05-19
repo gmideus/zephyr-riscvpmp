@@ -10,8 +10,13 @@
 #include <sys/printk.h>
 #include <kernel.h>
 
+#define STACK_SIZE 512
+#define PRIORITY 0
+
+void test();
 
 
+K_THREAD_DEFINE(tid1, STACK_SIZE, user_wrapper, test, NULL, NULL, PRIORITY, K_USER, K_NO_WAIT);
 
 /**
 * CARE C OPTIMIZING
@@ -34,5 +39,5 @@ void test() {
 
 void test_main(void)
 {
-  test();
+
 }
