@@ -70,29 +70,29 @@ struct __esf {
 
 	/* pmp configuration registers */
 
-	ulong_t pmpcfg0;
-	ulong_t pmpcfg1;
-	ulong_t pmpcfg2;
-	ulong_t pmpcfg3;
+	uint32_t pmpcfg0;
+	uint32_t pmpcfg1;
+	// uint32_t pmpcfg2;
+	// uint32_t pmpcfg3;
 
 	/* pmp address registers */
 
-	ulong_t pmpaddr0;
-	ulong_t pmpaddr1;
-	ulong_t pmpaddr2;
-	ulong_t pmpaddr3;
-	ulong_t pmpaddr4;
-	ulong_t pmpaddr5;
-	ulong_t pmpaddr6;
-	ulong_t pmpaddr7;
-	ulong_t pmpaddr8;
-	ulong_t pmpaddr9;
-	ulong_t pmpaddr10;
-	ulong_t pmpaddr11;
-	ulong_t pmpaddr12;
-	ulong_t pmpaddr13;
-	ulong_t pmpaddr14;
-	ulong_t pmpaddr15;
+	uint32_t pmpaddr0;
+	uint32_t pmpaddr1;
+	uint32_t pmpaddr2;
+	uint32_t pmpaddr3;
+	uint32_t pmpaddr4;
+	uint32_t pmpaddr5;
+	uint32_t pmpaddr6;
+	uint32_t pmpaddr7;
+	// uint32_t pmpaddr8;
+	// uint32_t pmpaddr9;
+	// uint32_t pmpaddr10;
+	// uint32_t pmpaddr11;
+	// uint32_t pmpaddr12;
+	// uint32_t pmpaddr13;
+	// uint32_t pmpaddr14;
+	// uint32_t pmpaddr15;
 
 	#endif
 

@@ -70,8 +70,8 @@ GEN_OFFSET_SYM(z_arch_esf_t, mstatus);
 /* PMP control registers */
 GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg0);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg1);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg2);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg3);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg2);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpcfg3);
 
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr0);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr1);
@@ -81,14 +81,14 @@ GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr4);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr5);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr6);
 GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr7);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr8);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr9);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr10);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr11);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr12);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr13);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr14);
-GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr15);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr8);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr9);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr10);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr11);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr12);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr13);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr14);
+// GEN_OFFSET_SYM(z_arch_esf_t, pmpaddr15);
 
 #endif
 

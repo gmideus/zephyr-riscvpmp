@@ -67,10 +67,10 @@ void arch_new_thread(struct k_thread *thread, k_thread_stack_t *stack,
 
 	stack_init->pmpcfg0 = 0;
 	stack_init->pmpcfg1 = 0;
-	stack_init->pmpcfg2 = 0;
-	stack_init->pmpcfg3 = 0;
+	//stack_init->pmpcfg2 = 0;
+	//stack_init->pmpcfg3 = 0;
 	#endif
-	
+
 	stack_init->mstatus = MSTATUS_DEF_RESTORE;
 	stack_init->mepc = (ulong_t)z_thread_entry_wrapper;
 
