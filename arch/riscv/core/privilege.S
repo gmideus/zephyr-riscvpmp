@@ -1,3 +1,4 @@
+#ifdef CONFIG_RISCV_USER_MODE
 	.text
 	.globl to_umode
 	.type to_umode, @function
@@ -25,3 +26,5 @@ abort:
 	la a7, 0x1
 	ecall
 	ret
+
+#endif
