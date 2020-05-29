@@ -33,3 +33,20 @@ K_THREAD_DEFINE(tid1, STACK_SIZE, user_wrapper, thread_entry, 24, 5, PRIORITY, 0
 ```
 
 There are a number of OS functions that are not available to threads in user mode because they either require access to restricted memory sections or make use of privileged instructions that can only be executed in M-mode. One of these functions k_yield has been given a user mode equivalent simply called yield that can be used by user mode threads to let the OS schedule another thread.
+
+## Files
+
+The following files were changed as a part of this prototype:
+arch/riscv/core/thread.c
+arch/riscv/core/reset.S
+arch/riscv/core/offsets/offsets.c
+arch/riscv/core/isr.S
+include/arch/riscv/arch.h
+include/arch/riscv/exp.h
+
+The following NEW files were added as a part of this prototype:
+arch/riscv/core/user_wrapper.c
+arch/riscv/core/syscall.c
+arch/riscv/core/pmp.c
+arch/riscv/core/privilege.S
+
