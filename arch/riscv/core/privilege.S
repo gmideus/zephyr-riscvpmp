@@ -18,3 +18,10 @@ yield:
   la a7, 0x2
   ecall
   ret
+
+	.globl abort
+	.type abort, @function
+abort:
+	la a7, 0x1
+	ecall
+	ret

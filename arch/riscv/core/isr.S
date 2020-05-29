@@ -193,10 +193,13 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 	 * otherwise handle fault
 	 */
 	beq t0, t1, is_syscall
+
+  #ifdef CONFIG_RISCV_USER_MODE
   /* Check for user mode syscall */
   li t1, 0x8
   beq t0, t1, is_syscall
 
+  #endif
 
 	/*
 	 * Call _Fault to handle exception.
@@ -211,7 +214,7 @@ SECTION_FUNC(exception.entry, __irq_wrapper)
 
 is_syscall:
 #ifdef CONFIG_RISCV_USER_MODE
-  /* SIMPLE SYSCALL TEST CODE */
+  /* SIMPLE SYSCALL HANDLING */
   RV_OP_LOADREG a0, __z_arch_esf_t_a7_OFFSET(sp)
   call handle_syscall
   RV_OP_LOADREG t0, __z_arch_esf_t_a7_OFFSET(sp)
@@ -225,7 +228,7 @@ is_syscall:
 #endif
 
 mepc_setup:
-  /* SIMPLE SYSCALL TEST END */
+
 	/*
 	 * A syscall is the result of an ecall instruction, in which case the
 	 * MEPC will contain the address of the ecall instruction.

@@ -113,6 +113,7 @@ void z_irq_spurious(void *unused);
  */
 void user_wrapper(void (*entry)(), void *p1, void *p2);
 void yield();
+void abort();
 //uint32_t data_end;
 #endif
 
