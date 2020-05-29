@@ -37,16 +37,16 @@ There are a number of OS functions that are not available to threads in user mod
 ## Files
 
 The following files were changed as a part of this prototype:
-arch/riscv/core/thread.c
-arch/riscv/core/reset.S
-arch/riscv/core/offsets/offsets.c
-arch/riscv/core/isr.S
-include/arch/riscv/arch.h
-include/arch/riscv/exp.h
+- arch/riscv/core/thread.c
+- arch/riscv/core/reset.S
+- arch/riscv/core/offsets/offsets.c
+- arch/riscv/core/isr.S
+- include/arch/riscv/arch.h
+- include/arch/riscv/exp.h
 
 The following NEW files were added as a part of this prototype:
-arch/riscv/core/user_wrapper.c
-arch/riscv/core/syscall.c
-arch/riscv/core/pmp.c
-arch/riscv/core/privilege.S
+- arch/riscv/core/user_wrapper.c
+- arch/riscv/core/syscall.c
+- arch/riscv/core/pmp.c
+- arch/riscv/core/privilege.S
 
